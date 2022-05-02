@@ -1,0 +1,402 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+/* .line {
+    border: 1px solid black;
+} */
+.wrapper {
+    background-color: lavender;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('./assets/white-poppy-with-eucalyptus-leaves-background.jpg');
+    background-size: cover;
+}
+
+.mobile-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.searcher-container{
+    width: 40%;
+    height: 20%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+}
+.search-button, .searcher-close-button{
+    font-family: monospace;
+    font-size: large;
+    color: cornflowerblue;
+    font-weight: bold;
+}
+.search-button:hover, .searcher-button:hover, .searcher-close-button:hover, .search-button:focus, .searcher-button:focus, .searcher-close-button:focus{
+    color: indianred;
+}
+.search-button i, .searcher-close-button i{
+    font-size: medium;
+}
+
+.searcher-input-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    margin: 0 auto;
+    gap: 5%;
+}
+.searcher-input{
+    border: 1px solid cornflowerblue;
+    border-radius: .25rem;
+    background-color: white;
+    width: 80%;
+    height: 40% !important;
+    outline: cornflowerblue;
+    font-family: monospace;
+    font-size: smaller;
+    padding-left: 2.5%;
+    color: cornflowerblue;
+}
+.searcher-button{
+    width: 20%;
+    color: cornflowerblue;
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+}
+.main-container {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 50%);
+    border-radius: 0.75rem;
+}
+
+.main-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+    width: 100%;
+}
+
+.main-title {
+    font-family: monospace;
+    color: cornflowerblue;
+    text-align: center;
+}
+
+.main-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 85%;
+    width: 85%;
+    position: relative;
+}
+
+.clear-all {
+    display: none;
+    font-size: smaller;
+    font-family: monospace;
+    color: indianred;
+    align-self: end;
+    position: absolute;
+    top: 3%;
+}
+
+#list {
+    height: 85%;
+    width: 85%;
+    overflow-y: scroll;
+    margin: 0 auto;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid cornflowerblue;
+    border-radius: 0.25rem;
+    background-color: rgba(255, 255, 255, 100%);
+    width: 85%;
+    height: fit-content;
+    margin: 0 auto;
+    margin-bottom: 2.5%;
+    min-height: 5.5vh;
+}
+
+.item-status-col {
+    width: 20%;
+}
+
+.item-icon-col {
+    width: 15%;
+}
+
+.item-task-col {
+    width: 50%;
+}
+
+.item-status-col,
+.item-icon-col,
+.item-task-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.status {
+    height: 0.75em;
+    width: 0.75em;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.status_undone {
+    background-color: cornflowerblue;
+}
+
+.status_done {
+    background-color: indianred;
+}
+
+.task {
+    font-family: monospace;
+    color: cornflowerblue;
+    font-size: small;
+    align-self: flex-start;
+    padding: 5% 0%;
+}
+
+.erase-icon,
+.update_icon,
+.check-icon {
+    cursor: pointer;
+}
+
+.erase-icon,
+.update_icon {
+    font-size: x-small;
+    color: cornflowerblue;
+}
+
+.check-icon {
+    font-size: x-small;
+    color: indianred;
+}
+
+.erase-icon:hover,
+.erase-icon:focus {
+    color: indianred;
+}
+
+.check-icon:hover,
+.check-icon:focus {
+    color: cornflowerblue;
+}
+
+
+.input-container {
+    width: 50%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-col {
+    width: 80%;
+    height: 20%;
+    text-align: center;
+}
+
+#todo-input {
+    border: 1px solid cornflowerblue;
+    border-radius: .25rem;
+    background-color: white;
+    width: 80%;
+    height: 100%;
+    outline: cornflowerblue;
+    font-family: monospace;
+    font-size: smaller;
+    padding-left: 2.5%;
+    color: cornflowerblue;
+}
+
+.button-col {
+    width: 20%;
+    height: 20%;
+    text-align: center;
+}
+
+#input-button {
+    border: 1px solid cornflowerblue;
+    border-radius: 0.25rem;
+    background-color: white;
+    width: 60%;
+    height: 100%;
+    color: cornflowerblue;
+    font-weight: bold;
+    font-size: x-small;
+}
+
+#input-button:hover {
+    border: 1px solid white;
+    /* background-color: cornflowerblue; */
+    background-color: indianred;
+    color: white;
+}
+
+.wrapper button {
+    cursor: pointer;
+}
+
+.update-input, .focused-input {
+    border: 1px solid indianred;
+    font-family: monospace;
+    border-radius: 0.25rem;
+    height: 50%;
+    outline: none;
+    color: indianred;
+    padding-left: 2.5%;
+}
+.update-input::placeholder{
+    font-family: monospace;
+    color: indianred;
+    padding-left: 2.5%;
+}
+.alert-opacity{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(39, 45, 93, 15%);    
+}
+.alert-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 30%;
+    height: 25%;
+    background-color: white;
+    color: white;
+    border-radius: 0.25rem;
+    border: 1px solid indianred;
+    color: indianred;
+    font-family: monospace;
+}
+
+.alert-button-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.alert-button-row button {
+    width: 15%;
+    background-color: white;
+    border-radius: 0.25rem;
+    border: 1px solid indianred;
+    font-family: monospace;
+    color: indianred;
+}
+
+.alert-button-row button:focus,
+.alert-button-row button:hover {
+    background-color: lavender;
+    border: 1px solid cornflowerblue;
+    color: cornflowerblue;
+}
+
+@media only screen and (max-width: 820px) {
+    .wrapper {
+        /*background-size: contain;*/
+    }
+
+    .mobile-wrapper {
+        width: 90%;
+        height: 80%;
+        margin: 0 auto;
+    }
+
+    .searcher-container{
+        width: 80%;
+    }
+
+    .main-container {
+        width: 100%;
+        height: 70%;
+    }
+
+    .input-container {
+        width: 100%;
+        height: 20%;
+        flex-direction: column;
+        gap: 25%;
+    }
+
+    .input-col,
+    .button-col {
+        width: 100%;
+    }
+
+    #input-button {
+        width: 20%;
+    }
+    #todo-input{
+        width: 80%;
+    }
+    #list {
+        width: 100%;
+    }
+
+    .item {
+        width: 99%;
+    }
+
+    .alert-container {
+        width: 90%;
+        height: 15%;
+    }
+    
+    .alert-button-row {
+        width: 100%;
+    }
+    
+    .alert-button-row button {
+        width: 20%;
+    }
+}
