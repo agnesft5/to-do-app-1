@@ -14,14 +14,14 @@
     <div class="wrapper">
         <div class="mobile-wrapper">
             <div class="searcher-container">
-                <p class="search-button" onclick="searcher.render()"><i class="fa-solid fa-magnifying-glass"></i> Search your task!</p>
+                <p class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search your task!</p>
             </div>
             <div class="main-container line">
                 <div class="main-title-container">
                     <h2 class="main-title">TO DO LIST</h2>
                 </div>
                 <div class="main-list-container">
-                    <span class="clear-all" onclick="toDo.clearAll()">Clear All</span>
+                    <span class="clear-all">Clear All</span>
                     <div id="list" class="line">
 
                     </div>
@@ -32,12 +32,12 @@
                     <input id="todo-input" type="text">
                 </div>
                 <div class="button-col">
-                    <button id="input-button" onclick="toDo.save();">ADD</button>
+                    <button id="input-button">ADD</button>
                 </div>
             </div>
         </div>
     </div>
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
