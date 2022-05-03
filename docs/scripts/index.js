@@ -131,7 +131,7 @@ const toDo = {
         searcher.checkSearcherRender(arrToRender);
         this.listContainer.innerHTML = '';
         arrToRender.map((el) => this.create(el))
-        if (arrToRender.length > 0)
+        if (arrToRender.length > 0 && arrToRender === this.list)
             document.getElementsByClassName('clear-all')[0].style.display = 'block';
         else document.getElementsByClassName('clear-all')[0].style.display = 'none';
     },
@@ -250,6 +250,7 @@ const searcher = {
         document.getElementsByClassName('main-title')[0].style.color = 'cornflowerblue';
         document.getElementsByClassName('input-container')[0].style.visibility = 'visible';
         document.getElementsByClassName('clear-all')[0].style.display = 'none';
+        toDo.listContainer.innerHTML="";
         toDo.render(toDo.list);
     },
     checkSearcherRender(arrToRender) {
@@ -260,6 +261,7 @@ const searcher = {
     },
     find(data) {
         let cut = data.length;
+        console.log(data, cut)
         let suggestions = toDo.list.filter(todo => todo.task.slice(0, cut) === data);
         if (suggestions.length === 0 && data) setTimeout(app.modal(`Impossible to find ${data}`), 50); //falta crear un modal i canviarli el valor en funcio
         toDo.render(suggestions);
