@@ -343,18 +343,16 @@ const app = {
         }
     },
     addFunctionToEl(componentsArr, isOne) {
-        console.log(componentsArr)
         componentsArr.forEach(component => {
-            console.log(component)
             let action = component[Object.keys(component)]['function'];
             if (isOne) {
                 let element = document.querySelector(component[Object.keys(component)]['element']);
-                console.log(element)
                 element.addEventListener('click', action);
             }
             else {
                 let elements = document.querySelectorAll(component[Object.keys(component)]['element']);
                 elements.forEach(el => {
+                    console.log('hi')
                     el.addEventListener('click', action);
                 })
             }
@@ -398,6 +396,7 @@ const app = {
 
         let components = app.findComponent(ixComponentsTD, 'modal');
         app.addFunctionToEl(components, true);
+        if (document.querySelector('#ok-button')) document.onkeyup = (e) => { if (e.key === 'Enter') ref.closeModal() }
     },
     capitalize(string) {
         let capitalizedArr = [];
@@ -487,19 +486,19 @@ const ixComponentsTD = {
         }
     }],
     render: [{
-        changeVal: {
+        searcherCloseButton: {
             element: '.searcher-close-button',
             function: searcher.hide
         }
     }],
     hide: [{
-        changeVal: {
+        searchButton: {
             element: '.search-button',
             function: searcher.render
         }
     }],
     modal: [{
-        changeVal: {
+        okButton: {
             element: '#ok-button',
             function: app.closeModal
         }
