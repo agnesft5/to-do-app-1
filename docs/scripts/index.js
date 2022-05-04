@@ -4,7 +4,7 @@ const toDo = {
     listContainer: document.getElementById('list'),
     save() {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
         let input = document.getElementById('todo-input');
@@ -34,7 +34,7 @@ const toDo = {
     },
     create(element) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
         let task = app.capitalize(element.task)
@@ -48,21 +48,25 @@ const toDo = {
 
         let item = `<div class="item line">
                         <div class="item-status-col line">
-                            <div id="status-${element.id}" class="status ${status}" onclick="toDo.updateStatus(${element.id})"></div>
+                            <div id="status-${element.id}" class="status ${status}"></div>
                         </div>
                         <div class="item-task-col line">
                             <span id="task-${element.id}" class="task" style="overflow-wrap: ${taskOverflowWrap}">${task}</span>
                         </div>
                         <div class="item-icon-col line">
-                            <i class="fa-solid fa-pencil update_icon" onclick="toDo.update(${element.id})"></i>
+                            <i id="update-${element.id}" class="fa-solid fa-pencil update-icon"></i>
                         </div>
                         <div class="item-icon-col line">
-                            <i class="fa-solid fa-trash-can erase-icon" onclick="toDo.erase(${element.id})"></i>
+                            <i id="erase-${element.id}" class="fa-solid fa-trash-can erase-icon"></i>
                         </div>
                     </div>`
 
 
         ref.listContainer.innerHTML += item
+
+        let components = app.findComponent(ixComponentsTD, 'create');
+        if (ref.list.length === 1) app.addFunctionToEl(components, true);
+        else app.addFunctionToEl(components, false);
     },
     render(arrToRender) {
         let ref;
@@ -100,13 +104,15 @@ const toDo = {
     },
     updateStatus(id) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
-        let index = app.setIndex(id, toDo.list)
+        let index = app.setIndex(id, ref.list);
+        console.log(id, ref.list)
+        console.log(index)
         let statusDisplay = document.getElementsByClassName('status');
         let selDisplay;
-        for (display of statusDisplay) {
+        for (let display of statusDisplay) {
             if (parseInt(display.id.split('-')[1]) === id) {
                 selDisplay = display;
             }
@@ -124,7 +130,7 @@ const toDo = {
     },
     changeTaskValue(id) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
         let input = app.findInput(id);
@@ -143,7 +149,7 @@ const toDo = {
     },
     cancelUpdate(id) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
         let input = app.findInput(id);
@@ -156,13 +162,17 @@ const toDo = {
     },
     askConfirmation(id) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
         app.modal(`Are you sure you want to change taks#${id}?`);
         document.getElementById('modal-button-container').innerHTML =
-            `<button type="button" onclick="toDo.changeTaskValue(${id})">Yes</button>
-        <button type="button" onclick="toDo.cancelUpdate(${id})">Cancel</button>`
+            `<button id="change-${id}" class="changeVal-button" type="button">Yes</button>
+        <button id="cancel-${id}" class="cancelUd-button" type="button">Cancel</button>`
+
+        let components = app.findComponent(ixComponentsTD, 'askConfirmation');
+        if (ref.list.length === 1) app.addFunctionToEl(components, true);
+        else app.addFunctionToEl(components, false);
     },
     enableUpdate(id) {
         let ref;
@@ -174,14 +184,20 @@ const toDo = {
         input.onkeyup = (e) => {
             if (e.key === 'Enter') ref.askConfirmation(id);
         }
-        input.parentElement.parentElement.children[2].innerHTML = `<i class="fa-solid fa-check check-icon" onclick="toDo.askConfirmation(${id})"></i>`;
+        input.parentElement.parentElement.children[2].innerHTML = `<i id="check-${id}" class="fa-solid fa-check check-icon"></i>`;
+
+        let components = app.findComponent(ixComponentsTD, 'enableUpdate');
+        if (ref.list.length === 1) app.addFunctionToEl(components, true);
+        else app.addFunctionToEl(components, false);
+
     },
     transformTask(task, id) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
 
-        taskContainer = task.parentElement;
+        let taskContainer = task.parentElement;
+        console.log(taskContainer)
         let oldTask = task.innerHTML;
         taskContainer.innerHTML = `<input id="update-input-${id}" class="update-input" type="text" value='${oldTask}' placeholder="${oldTask}" autocomplete="off">`;
         let updateInput = document.getElementById(`update-input-${id}`)
@@ -190,73 +206,109 @@ const toDo = {
     },
     update(id) {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
+
+        console.log(id)
 
         let inputs = document.getElementsByClassName('update-input');
         for (let input of inputs) {
             if (input) {
                 let inputId = parseInt(input.id.split('-')[2]);
                 let inputIndex = app.setIndex(inputId, ref.list);
-                input.parentElement.parentElement.getElementsByClassName('item-icon-col')[0].innerHTML = `<i class="fa-solid fa-pencil update_icon" onclick="toDo.updateItem(${inputIndex})"></i>`;
+                input.parentElement.parentElement.getElementsByClassName('item-icon-col')[0].innerHTML = `<i class="fa-solid fa-pencil update_icon"></i>`;
                 input.parentElement.innerHTML = `<span class="task">${ref.list[inputIndex]['task']}</span>`;
+
+                let components = app.findComponent(ixComponentsTD, 'update');
+                if (ref.list.length === 1) app.addFunctionToEl(components, true);
+                else app.addFunctionToEl(components, false);
             }
         }
+
+        let components = app.findComponent(ixComponentsTD, 'enableUpdate');
+        if (ref.list.length === 1) app.addFunctionToEl(components, true);
+        else app.addFunctionToEl(components, false);
+
         let taskToUpdate = document.getElementById(`task-${id}`);
-        taskToUpdate.onclick = this.transformTask(taskToUpdate, id);
-    }
+        console.log(id, taskToUpdate)
+        taskToUpdate.onclick = ref.transformTask(taskToUpdate, id);
+    },
 }
 
 const searcher = {
     render() {
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = searcher;
+        else ref = this;
+
         let searcherContainer = app.mainContainer.getElementsByClassName('searcher-container')[0];
         document.getElementsByClassName('input-container')[0].style.visibility = 'hidden';
         document.getElementsByClassName('clear-all')[0].style.display = 'none';
         searcherContainer.innerHTML = `
-                            <p class="searcher-close-button" onclick="searcher.hide()">Close searcher <i class="fa-solid fa-xmark"></i></p>
+                            <p class="searcher-close-button">Close searcher <i class="fa-solid fa-xmark"></i></p>
                         <div class="searcher-input-container">
-                            <input class="searcher-input" onfocus="searcher.search()" type="text">
+                            <input class="searcher-input" type="text">
                             <p class="searcher-button"><i class="fa-solid fa-magnifying-glass"></i></p>
                         </div>`;
-        document.getElementsByClassName('searcher-input')[0].focus();
+
+        let components = app.findComponent(ixComponentsTD, 'render');
+        app.addFunctionToEl(components, true);
+        document.querySelector('.searcher-input').focus();
+        document.querySelector('.searcher-input').onfocus = ref.search();
 
     },
     hide() {
         let searcherContainer = app.mainContainer.getElementsByClassName('searcher-container')[0];
-        searcherContainer.innerHTML = `<p class="search-button" onclick="searcher.render()"><i class="fa-solid fa-magnifying-glass"></i> Search your task!</p>`
+        searcherContainer.innerHTML = `<p class="search-button"><i class="fa-solid fa-magnifying-glass"></i> Search your task!</p>`
         document.getElementsByClassName('main-title')[0].innerText = 'TO DO LIST'
         document.getElementsByClassName('main-title')[0].style.color = 'cornflowerblue';
         document.getElementsByClassName('input-container')[0].style.visibility = 'visible';
         document.getElementsByClassName('clear-all')[0].style.display = 'none';
         toDo.listContainer.innerHTML = "";
         toDo.render(toDo.list);
+
+        let components = app.findComponent(ixComponentsTD, 'hide');
+        app.addFunctionToEl(components, true);
     },
     checkSearcherRender(arrToRender) {
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = searcher;
+        else ref = this;
+
         if (arrToRender === toDo.list) {
             let closeSearcherButton = document.getElementsByClassName('searcher-close-button')[0];
-            if (closeSearcherButton) this.hide();
+            if (closeSearcherButton) ref.hide();
         } else return true
     },
     find(data) {
         let cut = data.length;
         let suggestions = toDo.list.filter(todo => todo.task.slice(0, cut) === data);
-        if (suggestions.length === 0 && data) setTimeout(app.modal(`Impossible to find ${data}`), 50); //falta crear un modal i canviarli el valor en funcio
+        if (suggestions.length === 0 && data) setTimeout(app.modal(`Impossible to find ${data}`), 50);
         toDo.render(suggestions);
 
     },
     getData(e) {
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = searcher;
+        else ref = this;
+
         let userData = e.target.value;
         if (e.target.value) {
             document.getElementsByClassName('main-title')[0].innerText = 'SEARCHING YOUR TO DO...'
             document.getElementsByClassName('main-title')[0].style.color = 'indianred';
-            this.find(userData.toLowerCase());
+            ref.find(userData.toLowerCase());
         }
     },
     search() {
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = searcher;
+        else ref = this;
+
+        console.log('hi')
         let searcherInput = document.getElementsByClassName('searcher-input')[0];
         searcherInput.onkeyup = (e) => {
             searcherInput.classList.add('focused-input');
-            this.getData(e);
+            ref.getData(e);
         }
     }
 
@@ -283,50 +335,69 @@ const app = {
             }
         }
     ],
+    findComponent(objToAdd, key) {
+        for (let i = 0; i < Object.keys(objToAdd).length; i++) {
+            let fooName = Object.keys(objToAdd)[i];
+            let fooObj = objToAdd[fooName];
+            if (fooName === key) return fooObj;
+        }
+    },
     addFunctionToEl(componentsArr, isOne) {
+        console.log(componentsArr)
         componentsArr.forEach(component => {
+            console.log(component)
             let action = component[Object.keys(component)]['function'];
             if (isOne) {
                 let element = document.querySelector(component[Object.keys(component)]['element']);
-                element.addEventListener('click', action)
+                console.log(element)
+                element.addEventListener('click', action);
             }
             else {
                 let elements = document.querySelectorAll(component[Object.keys(component)]['element']);
-                elements.forEach(el => el.addEventListener('click', action))
+                elements.forEach(el => {
+                    el.addEventListener('click', action);
+                })
             }
         })
     },
     closeModal() {
         let ref;
-        if (this.id || this.classList) ref = toDo;
+        if (this === undefined || this.id || this.classList) ref = app;
         else ref = this;
 
-        if (this.mainContainer.children.length > 1) {
-            this.mainContainer.removeChild(document.getElementsByClassName('alert-opacity')[0]);
+        if (ref.mainContainer.children.length > 1) {
+            ref.mainContainer.removeChild(document.getElementsByClassName('alert-opacity')[0]);
             document.querySelectorAll('input')[0].focus();
         } else {
             console.log('No modal to close')
         }
     },
     modal(msg) {
-        this.closeModal();
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = app;
+        else ref = this;
+
+        ref.closeModal();
         let alert = `<div class="alert-opacity">
                             <div class="alert-container">
                                 <span id="msg">${msg}</span>
                                 <div id="modal-button-container" class="alert-button-row">
-                                    <button type="button" onclick="app.closeModal()">OK</button>
+                                    <button id="ok-button" type="button">OK</button>
                                 </div>
                             </div>
                         </div>`
         document.querySelectorAll('input')[0].blur();
-        if (this.mainContainer.children.length === 1) {
-            this.mainContainer.insertAdjacentHTML('beforeend', alert);
+        if (ref.mainContainer.children.length === 1) {
+            ref.mainContainer.insertAdjacentHTML('beforeend', alert);
         } else {
-            this.mainContainer.removeChild(document.getElementsByClassName('alert-opacity')[0]);
+            ref.mainContainer.removeChild(document.getElementsByClassName('alert-opacity')[0]);
             setTimeout(() => {
-                this.mainContainer.insertAdjacentHTML('beforeend', alert);
+                ref.mainContainer.insertAdjacentHTML('beforeend', alert);
             }, 50)
         }
+
+        let components = app.findComponent(ixComponentsTD, 'modal');
+        app.addFunctionToEl(components, true);
     },
     capitalize(string) {
         let capitalizedArr = [];
@@ -352,7 +423,7 @@ const app = {
     },
     findInput(id) {
         let inputs = document.getElementsByClassName('update-input');
-        for (input of inputs) {
+        for (let input of inputs) {
             let inputId = input.id;
             inputId = parseInt(inputId.split('-')[2]);
             if (inputId == id) {
@@ -364,9 +435,76 @@ const app = {
     },
     mainContainer: document.getElementsByClassName('wrapper')[0],
     init() {
-        this.addFunctionToEl(this.ixComponents, true);
-        this.focus();
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = app;
+        else ref = this;
+
+        ref.addFunctionToEl(ref.ixComponents, true);
+        ref.focus();
     }
 }
+
+const ixComponentsTD = {
+    create: [{
+        status: {
+            element: '.status',
+            function: (e) => toDo.updateStatus(parseInt(e.target.id.split('-')[1]))
+        }
+    },
+    {
+        updateIcon: {
+            element: '.update-icon',
+            function: (e) => toDo.update(parseInt(e.target.id.split('-')[1]))
+        }
+    }, {
+        eraseIcon: {
+            element: '.erase-icon',
+            function: (e) => toDo.erase(parseInt(e.target.id.split('-')[1]))
+        }
+    }],
+    askConfirmation: [{
+        changeVal: {
+            element: '.changeVal-button',
+            function: (e) => toDo.changeTaskValue(parseInt(e.target.id.split('-')[1]))
+        }
+    },
+    {
+        cancelUd: {
+            element: '.cancelUd-button',
+            function: () => toDo.cancelUpdate(parseInt(e.target.id.split('-')[1]))
+        }
+    }],
+    enableUpdate: [{
+        changeVal: {
+            element: '.check-icon',
+            function: (e) => toDo.askConfirmation(parseInt(e.target.id.split('-')[1]))
+        }
+    }],
+    update: [{
+        changeVal: {
+            element: '.update-icon',
+            function: (e) => toDo.update(parseInt(e.target.id.split('-')[1]))
+        }
+    }],
+    render: [{
+        changeVal: {
+            element: '.searcher-close-button',
+            function: searcher.hide
+        }
+    }],
+    hide: [{
+        changeVal: {
+            element: '.search-button',
+            function: searcher.render
+        }
+    }],
+    modal: [{
+        changeVal: {
+            element: '#ok-button',
+            function: app.closeModal
+        }
+    }]
+}
+
 
 app.init();

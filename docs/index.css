@@ -193,13 +193,13 @@ body {
 }
 
 .erase-icon,
-.update_icon,
+.update-icon,
 .check-icon {
     cursor: pointer;
 }
 
 .erase-icon,
-.update_icon {
+.update-icon {
     font-size: x-small;
     color: cornflowerblue;
 }
