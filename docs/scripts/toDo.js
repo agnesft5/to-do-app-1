@@ -232,7 +232,6 @@ const toDo = {
             }
         } else theresInput = 'no input'
 
-        //console.log(theresInput)
     },
     update(id) {
         let ref;
@@ -240,11 +239,6 @@ const toDo = {
         else ref = this;
 
         ref.closeEditInputs();
-
-        let components = app.findComponent(ixComponentsTD, 'enableUpdate');
-
-        if (ref.list.length === 1) app.addFunctionToEl(components, true);
-        else app.addFunctionToEl(components, false);
 
         let taskToUpdate = document.getElementById(`task-${id}`);
         taskToUpdate.onclick = ref.transformTask(taskToUpdate, id);
