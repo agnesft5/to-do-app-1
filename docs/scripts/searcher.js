@@ -72,7 +72,6 @@ const searcher = {
         if (this === undefined || this.id || this.classList) ref = searcher;
         else ref = this;
 
-        console.log('hi')
         let searcherInput = document.getElementsByClassName('searcher-input')[0];
         searcherInput.onkeyup = (e) => {
             searcherInput.classList.add('focused-input');
