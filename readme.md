@@ -30,3 +30,4 @@ This app was developed with HTML5, CSS3 and EC6 (Vanilla JS).
 ## Authors
 
 This app was developed by [@afonttorres](https://github.com/afonttorres)
+ 
