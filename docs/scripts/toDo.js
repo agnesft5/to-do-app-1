@@ -183,7 +183,7 @@ const toDo = {
         let input = app.findInput(id);
         input.value = "";
         input.onkeyup = (e) => {
-            if (e.key === 'Enter') {ref.askConfirmation(id)}
+            if (e.key === 'Enter') { ref.askConfirmation(id) }
         }
         input.parentElement.parentElement.children[2].innerHTML = `<i id="check-${id}" class="fa-solid fa-check check-icon"></i>`;
 
@@ -204,30 +204,51 @@ const toDo = {
         updateInput.focus();
         updateInput.onfocus = ref.enableUpdate(id)
     },
-    update(id) {
+    closeEditInputs() {
         let ref;
         if (this === undefined || this.id || this.classList) ref = toDo;
         else ref = this;
+
         let inputs = document.getElementsByClassName('update-input');
-        for (let input of inputs) {
-            if (input) {
+        let theresInput = 'no input'
+        if (inputs) {
+            for (let input of inputs) {
+                //if is there any other input when I'm about to edit a new task
+                //this script will transform it to a span
                 let inputId = parseInt(input.id.split('-')[2]);
                 let inputIndex = app.setIndex(inputId, ref.list);
-                input.parentElement.parentElement.getElementsByClassName('item-icon-col')[0].innerHTML = `<i class="fa-solid fa-pencil update_icon"></i>`;
-                input.parentElement.innerHTML = `<span class="task">${ref.list[inputIndex]['task']}</span>`;
+                input.parentElement.parentElement.getElementsByClassName('item-icon-col')[0].innerHTML = `<i id="update-${inputId}" class="fa-solid fa-pencil update-icon"></i>`;
+                let taskCap = app.capitalize(ref.list[inputIndex]['task']);
+                let taskOverflowWrap;
+                if (taskCap.includes(' ')) taskOverflowWrap = 'break-word';
+                else taskOverflowWrap = 'anywhere';
+                input.parentElement.innerHTML = `<span id="task-${inputId}" class="task" style="overflow-wrap: ${taskOverflowWrap}">${taskCap}</span>`;
 
                 let components = app.findComponent(ixComponentsTD, 'update');
                 if (ref.list.length === 1) app.addFunctionToEl(components, true);
                 else app.addFunctionToEl(components, false);
+
+                theresInput = 'input erased'
             }
-        }
+        } else theresInput = 'no input'
+
+        //console.log(theresInput)
+    },
+    update(id) {
+        let ref;
+        if (this === undefined || this.id || this.classList) ref = toDo;
+        else ref = this;
+
+        ref.closeEditInputs();
 
         let components = app.findComponent(ixComponentsTD, 'enableUpdate');
+
         if (ref.list.length === 1) app.addFunctionToEl(components, true);
         else app.addFunctionToEl(components, false);
 
         let taskToUpdate = document.getElementById(`task-${id}`);
         taskToUpdate.onclick = ref.transformTask(taskToUpdate, id);
+
     },
 }
 

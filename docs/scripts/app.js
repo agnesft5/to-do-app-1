@@ -166,13 +166,13 @@ const ixComponentsTD = {
         }
     }],
     enableUpdate: [{
-        changeVal: {
+        checkIcon: {
             element: '.check-icon',
             function: (e) => toDo.askConfirmation(parseInt(e.target.id.split('-')[1]))
         }
     }],
     update: [{
-        changeVal: {
+        updateIcon: {
             element: '.update-icon',
             function: (e) => toDo.update(parseInt(e.target.id.split('-')[1]))
         }

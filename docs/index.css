@@ -1,3 +1,11 @@
+:root {
+    --main-color: cornflowerblue;
+    --edit-color: indianred;
+    --font-family: monospace;
+    --main-font-size: small;
+    --input-height: 3.5vh;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +40,8 @@ body {
     align-items: center;
     justify-content: center;
 }
-.searcher-container{
+
+.searcher-container {
     width: 40%;
     height: 20%;
     margin: 0 auto;
@@ -41,20 +50,30 @@ body {
     align-items: end;
     justify-content: center;
 }
-.search-button, .searcher-close-button{
-    font-family: monospace;
+
+.search-button,
+.searcher-close-button {
+    font-family: var(--font-family);
     font-size: large;
-    color: cornflowerblue;
+    color: var(--main-color);
     font-weight: bold;
 }
-.search-button:hover, .searcher-button:hover, .searcher-close-button:hover, .search-button:focus, .searcher-button:focus, .searcher-close-button:focus{
-    color: indianred;
+
+.search-button:hover,
+.searcher-button:hover,
+.searcher-close-button:hover,
+.search-button:focus,
+.searcher-button:focus,
+.searcher-close-button:focus {
+    color: var(--edit-color);
 }
-.search-button i, .searcher-close-button i{
+
+.search-button i,
+.searcher-close-button i {
     font-size: medium;
 }
 
-.searcher-input-container{
+.searcher-input-container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -63,25 +82,28 @@ body {
     margin: 0 auto;
     gap: 5%;
 }
-.searcher-input{
-    border: 1px solid cornflowerblue;
+
+.searcher-input {
+    border: 1px solid var(--main-color);
     border-radius: .25rem;
     background-color: white;
     width: 80%;
-    height: 40% !important;
-    outline: cornflowerblue;
-    font-family: monospace;
-    font-size: smaller;
+    height: var(--input-height);
+    outline: var(--main-color);
+    font-family: var(--font-family);
+    font-size: var(--main-font-size);
     padding-left: 2.5%;
-    color: cornflowerblue;
+    color: var(--main-color);
 }
-.searcher-button{
+
+.searcher-button {
     width: 20%;
-    color: cornflowerblue;
+    color: var(--main-color);
     font-weight: bold;
     font-size: large;
     text-align: center;
 }
+
 .main-container {
     width: 50%;
     height: 50%;
@@ -103,8 +125,8 @@ body {
 }
 
 .main-title {
-    font-family: monospace;
-    color: cornflowerblue;
+    font-family: var(--font-family);
+    color: var(--main-color);
     text-align: center;
 }
 
@@ -120,12 +142,12 @@ body {
 
 .clear-all {
     display: none;
-    font-size: smaller;
-    font-family: monospace;
-    color: indianred;
+    font-size: var(--main-font-size);
+    font-family: var(--font-family);
+    color: var(--edit-color);
     align-self: end;
     position: absolute;
-    top: 3%;
+    top: 0;
 }
 
 #list {
@@ -138,7 +160,7 @@ body {
 .item {
     display: flex;
     flex-direction: row;
-    border: 1px solid cornflowerblue;
+    border: 1px solid var(--main-color);
     border-radius: 0.25rem;
     background-color: rgba(255, 255, 255, 100%);
     width: 85%;
@@ -177,17 +199,17 @@ body {
 }
 
 .status_undone {
-    background-color: cornflowerblue;
+    background-color: var(--main-color);
 }
 
 .status_done {
-    background-color: indianred;
+    background-color: var(--edit-color);
 }
 
 .task {
-    font-family: monospace;
-    color: cornflowerblue;
-    font-size: small;
+    font-family: var(--font-family);
+    color: var(--main-color);
+    font-size: var(--main-font-size);
     align-self: flex-start;
     padding: 5% 0%;
 }
@@ -200,23 +222,23 @@ body {
 
 .erase-icon,
 .update-icon {
-    font-size: x-small;
-    color: cornflowerblue;
+    font-size: var(--main-font-size);
+    color: var(--main-color);
 }
 
 .check-icon {
-    font-size: x-small;
-    color: indianred;
+    font-size: var(--main-font-size);
+    color: var(--edit-color);
 }
 
 .erase-icon:hover,
 .erase-icon:focus {
-    color: indianred;
+    color: var(--edit-color);
 }
 
 .check-icon:hover,
 .check-icon:focus {
-    color: cornflowerblue;
+    color: var(--main-color);
 }
 
 
@@ -236,16 +258,16 @@ body {
 }
 
 #todo-input {
-    border: 1px solid cornflowerblue;
+    border: 1px solid var(--main-color);
     border-radius: .25rem;
     background-color: white;
     width: 80%;
-    height: 100%;
-    outline: cornflowerblue;
-    font-family: monospace;
-    font-size: smaller;
+    height: var(--input-height);
+    outline: var(--main-color);
+    font-family: var(--font-family);
+    font-size: var(--main-font-size);
     padding-left: 2.5%;
-    color: cornflowerblue;
+    color: var(--main-color);
 }
 
 .button-col {
@@ -255,20 +277,20 @@ body {
 }
 
 #input-button {
-    border: 1px solid cornflowerblue;
+    border: 1px solid var(--main-color);
     border-radius: 0.25rem;
     background-color: white;
     width: 60%;
-    height: 100%;
-    color: cornflowerblue;
+    height: var(--input-height);
+    color: var(--main-color);
     font-weight: bold;
-    font-size: x-small;
+    font-size: var(--main-font-size);
 }
 
 #input-button:hover {
     border: 1px solid white;
-    /* background-color: cornflowerblue; */
-    background-color: indianred;
+    /* background-color: var(--main-color); */
+    background-color: var(--edit-color);
     color: white;
 }
 
@@ -276,21 +298,24 @@ body {
     cursor: pointer;
 }
 
-.update-input, .focused-input {
-    border: 1px solid indianred;
-    font-family: monospace;
+.update-input,
+.focused-input {
+    border: 1px solid var(--edit-color);
+    font-family: var(--font-family);
     border-radius: 0.25rem;
     height: 50%;
     outline: none;
-    color: indianred;
+    color: var(--edit-color);
     padding-left: 2.5%;
 }
-.update-input::placeholder{
-    font-family: monospace;
-    color: indianred;
+
+.update-input::placeholder {
+    font-family: var(--font-family);
+    color: var(--edit-color);
     padding-left: 2.5%;
 }
-.alert-opacity{
+
+.alert-opacity {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -300,8 +325,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgba(39, 45, 93, 15%);    
+    background-color: rgba(39, 45, 93, 15%);
 }
+
 .alert-container {
     position: fixed;
     display: flex;
@@ -313,9 +339,9 @@ body {
     background-color: white;
     color: white;
     border-radius: 0.25rem;
-    border: 1px solid indianred;
-    color: indianred;
-    font-family: monospace;
+    border: 1px solid var(--edit-color);
+    color: var(--edit-color);
+    font-family: var(--font-family);
 }
 
 .alert-button-row {
@@ -329,16 +355,16 @@ body {
     width: 15%;
     background-color: white;
     border-radius: 0.25rem;
-    border: 1px solid indianred;
-    font-family: monospace;
-    color: indianred;
+    border: 1px solid var(--edit-color);
+    font-family: var(--font-family);
+    color: var(--edit-color);
 }
 
 .alert-button-row button:focus,
 .alert-button-row button:hover {
     background-color: lavender;
-    border: 1px solid cornflowerblue;
-    color: cornflowerblue;
+    border: 1px solid var(--main-color);
+    color: var(--main-color);
 }
 
 @media only screen and (max-width: 820px) {
@@ -352,13 +378,13 @@ body {
         margin: 0 auto;
     }
 
-    .searcher-container{
+    .searcher-container {
         width: 80%;
     }
 
     .main-container {
         width: 100%;
-        height: 70%;
+        height: 60%;
     }
 
     .input-container {
@@ -376,9 +402,11 @@ body {
     #input-button {
         width: 20%;
     }
-    #todo-input{
+
+    #todo-input {
         width: 80%;
     }
+
     #list {
         width: 100%;
     }
@@ -391,11 +419,11 @@ body {
         width: 90%;
         height: 15%;
     }
-    
+
     .alert-button-row {
         width: 100%;
     }
-    
+
     .alert-button-row button {
         width: 20%;
     }

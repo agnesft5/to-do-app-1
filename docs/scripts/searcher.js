@@ -22,6 +22,8 @@ const searcher = {
         document.querySelector('.searcher-input').focus();
         document.querySelector('.searcher-input').onfocus = ref.search();
 
+        toDo.closeEditInputs();
+
     },
     hide() {
         let searcherContainer = app.mainContainer.getElementsByClassName('searcher-container')[0];
