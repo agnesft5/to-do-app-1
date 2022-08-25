@@ -28,6 +28,12 @@ This app was developed with HTML5, CSS3 and EC6 (Vanilla JS).
 
 
 ## Authors
++ [@afonttorres](https://github.com/afonttorres)
 
-This app was developed by [@afonttorres](https://github.com/afonttorres)
+#### Contact me:
+
+[Email](mailto:afonttorres@gmail.com)
+
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/agnes-font-torres/)
+
  
