@@ -4,7 +4,7 @@ This app allows the users to save their pending tasks and edit them so they can 
 ## 🔗 Link
 Click to the button below to open its GitHub pages' link:
 
-[![link](https://img.shields.io/badge/calendar_printer-000?style=for-the-badge&logo=ko-fi&logoColor=blue)](https://afonttorres.github.io/to-do-app/)
+[![link](https://img.shields.io/badge/to_do_app-000?style=for-the-badge&logo=ko-fi&logoColor=blue)](https://afonttorres.github.io/to-do-app/)
 
 
 ## Tech Stack
